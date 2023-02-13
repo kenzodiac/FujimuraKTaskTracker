@@ -1,14 +1,26 @@
 function SaveItemToLocalStorage(item){
     let tasks = GetLocalStorage();
-    for (let i = 0; i < tasks.length; i++){
-        if (tasks[i].id == item.id){
-            tasks[i] = item;
+    console.log(tasks);
+    if (tasks.length == 0){
+        tasks.push(item);
+    } else {
+        let temp;
+        let check = false;
+        for (let i = 0; i < tasks.length; i++){
+            if (tasks[i].id == item.id){
+                temp = i;
+                check = true;
+            }
+        }
+        if (check == true){
+            tasks[temp] = item;
         } else {
             tasks.push(item);
         }
     }
 
     localStorage.setItem('Tasks', JSON.stringify(tasks));
+    console.log('SaveItemToLocalStorage() has been executed');
 }
 
 function GetLocalStorage(){

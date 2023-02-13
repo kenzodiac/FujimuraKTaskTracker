@@ -1,3 +1,10 @@
+<!--
+    Kenneth Fujimura
+    Date Revised: 2-13-2023
+    "Task Tracker"
+    This was a quick, one-day project where we create a task tracker that saves users tasks based on their inputs, and categorizes those tasks so that the user can keep track of them. The website needed to track the task name, description, progress status of the task, the priority of the task, and the due date of the task. The information needed to be saved in local storage so it can be recalled later even after a refresh, and we needed the ability to also edit or delete tasks at will as well. The project was done in HTML, CSS, Bootstrap, and JavaScript.
+-->
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,13 +27,13 @@
         <!--Progress Header-->
         <div class="row progress-header">
             <div class="col-4 progress-header-cell">
-                <h2>To-Do [<span id="toDoCounter">0</span>]</h2>
+                <h2>To-Do<!--[<span id="toDoCounter">0</span>]--></h2>
             </div>
             <div class="col-4 progress-header-cell">
-                <h2>In Progress [<span id="inProgressCounter">0</span>] </h2>
+                <h2>In Progress<!--[<span id="inProgressCounter">0</span>]--></h2>
             </div>
             <div class="col-4 progress-header-cell">
-                <h2>Completed [<span id="completedCounter">0</span>] </h2>
+                <h2>Completed<!--[<span id="completedCounter">0</span>]--></h2>
             </div>
         </div>
 
@@ -99,6 +106,11 @@
                         <div class="col-4">Item ID#:</div>
                         <div class="col-8">
                             <h6 id="idNum"></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h6 id="errorMsg"></h6>
                         </div>
                     </div>
                 </div>

@@ -22,6 +22,7 @@ let statusInput = document.getElementById("statusInput");
 let priorityInput = document.getElementById("priorityInput");
 let dateInput = document.getElementById("dateInput");
 let idNum = document.getElementById("idNum");
+let errorMsg = document.getElementById("errorMsg");
 
 let modalSave = document.getElementById("modalSave");
 
@@ -35,7 +36,7 @@ function IdGenerator(){
     if (data.length == 0){
         tempId = 1;
     } else {
-        tempId = (data[data.length - 1].id) + 1;
+        tempId = data[data.length - 1].id + 1;
     }
     return tempId
 }
@@ -59,11 +60,16 @@ modalSave.addEventListener('click', function(){
         stat: statusInput.value, 
         priority: priorityInput.value,
         date: dateInput.value, 
-        id: idNum.textContent
+        id: parseInt(idNum.textContent)
     };
-    SaveItemToLocalStorage(item);
-    WipeStaging();
-    CreateElements();
+    if (nameInput.value == '' || descriptionInput.value == '' || statusInput.value == '' || priorityInput.value == '' || dateInput.value == '') {
+        errorMsg.textContent = "Error: Please make sure you fill out every input field."
+    } else {
+        errorMsg.textContent = '';
+        SaveItemToLocalStorage(item);
+        WipeStaging();
+        CreateElements();
+    }
 });
 
 //close modal buttons
@@ -78,8 +84,8 @@ modalCloseXBtn.addEventListener('click', function(){
 //WIPE STAGING AREAS CLEAR FOR REPOPULATION:
 function WipeStaging(){
     toDoStaging.innerHTML = "";
-    inProgressStaging = "";
-    completedStaging = "";
+    inProgressStaging.innerHTML = "";
+    completedStaging.innerHTML = "";
 }
 
 //FUNCTION FOR CREATING/DISPLAYING TASKS
@@ -90,20 +96,27 @@ function CreateElements(){
             //create card title
             let h5 = document.createElement('h5');
             h5.className = 'card-title';
-            h5.textContent = task.title;  //points to task name; not yet functional
+            h5.textContent = task.name;
 
             let h6 = document.createElement('h6');
             h6.className = 'card-subtitle mb-2 text-muted';
-            h6.textContent = task.date; //points to task due-date; not yet functional
+            h6.textContent = "Due Date: " + task.date;
 
             //create card btns
             let viewTaskBtn = document.createElement('button');
             viewTaskBtn.type = 'button';
             viewTaskBtn.className = 'btn btn-success view-options-btn';
             viewTaskBtn.textContent = 'View/Edit Task';
+            viewTaskBtn.setAttribute("data-bs-toggle", "modal"); 
+            viewTaskBtn.setAttribute("data-bs-target", "#taskInfoModal");
             viewTaskBtn.addEventListener('click', function(){
-                
-            }); //not yet functioning
+                nameInput.value = task.name;
+                descriptionInput.value = task.description;
+                statusInput.value = task.stat;
+                priorityInput.value = task.priority;
+                dateInput.value = task.date;
+                idNum.textContent = task.id;
+            });
 
             let deleteBtn = document.createElement('button');
             deleteBtn.type = 'button';
@@ -120,24 +133,27 @@ function CreateElements(){
             cardBody.className = 'card-body';
             let mainCardDiv = document.createElement('div');
             mainCardDiv.className = 'card';
-            mainCardDiv.style = 'width: 18rem;';
+            mainCardDiv.style = 'width: 18rem; background-color: rgba(0,0,0,.8)';
 
             //assembling components into card
             cardBody.appendChild(h5);
+            cardBody.appendChild(h6);
             cardBody.appendChild(viewTaskBtn);
             cardBody.appendChild(deleteBtn);
             mainCardDiv.appendChild(cardBody);
 
+
             //rules for injecting into three separate columns depending on task priority
             if (task.stat == 1) {
-                toDoStaging.appendChild(mainCardDiv);
+                toDoStaging.append(mainCardDiv);
             } else if (task.stat == 2) {
-                inProgressStaging.appendChild(mainCardDiv);
+                inProgressStaging.append(mainCardDiv);
             } else if (task.stat == 3) {
-                completedStaging.appendChild(mainCardDiv);
+                completedStaging.append(mainCardDiv);
             }
     });
 }
+CreateElements();
 
 //nonfunctional html code for reference modeling how compoents should look
 {/* <div class="card" style="width: 18rem;">
