@@ -133,7 +133,7 @@ function CreateElements(){
             cardBody.className = 'card-body';
             let mainCardDiv = document.createElement('div');
             mainCardDiv.className = 'card';
-            mainCardDiv.style = 'width: 18rem; background-color: rgba(0,0,0,.8)';
+            mainCardDiv.style = 'width: 18rem; background-color: rgba(0,0,0,.8); margin-top: 8px; margin-bottom: 8px;';
 
             //assembling components into card
             cardBody.appendChild(h5);
