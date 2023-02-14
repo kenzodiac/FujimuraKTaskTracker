@@ -50,6 +50,7 @@ addNewTaskBtn.addEventListener('click', function(){
     priorityInput.value = "";
     dateInput.value = "";
     idNum.textContent = IdGenerator();
+    errorMsg.textContent = '';
 });
 
 //save task button
@@ -74,11 +75,11 @@ modalSave.addEventListener('click', function(){
 
 //close modal buttons
 modalCloseBtn.addEventListener('click', function(){
-
+    errorMsg.textContent = '';
 });
 
 modalCloseXBtn.addEventListener('click', function(){
-
+    errorMsg.textContent = '';
 });
 
 //WIPE STAGING AREAS CLEAR FOR REPOPULATION:
@@ -116,6 +117,7 @@ function CreateElements(){
                 priorityInput.value = task.priority;
                 dateInput.value = task.date;
                 idNum.textContent = task.id;
+                errorMsg.textContent = '';
             });
 
             let deleteBtn = document.createElement('button');
