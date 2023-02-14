@@ -36,7 +36,7 @@ function RemoveFromLocalStorage(item){
     let tasks = GetLocalStorage();
 
     for (let i = 0; i < tasks.length; i++){
-        if (tasks[i].name == item.name && tasks[i].state == item.state){
+        if (tasks[i].id == item.id){
             tasks.splice(i, 1);
         }
     }
